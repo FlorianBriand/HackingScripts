@@ -45,11 +45,11 @@ def check_requirements(wordlist_dirsearch, wordlist_subdomain):
 def main():
     # url = input("Please enter the URL : ")
     url = "10.10.110.100"
-    url = "172.16.1.19"
+    # url = "172.16.1.19"
 
     ip = socket.gethostbyname(url)
     port = "65000"
-    port = "8080"
+    #port = "8080"
     if port != "":
         url = url + ":" + port
 
@@ -63,15 +63,23 @@ def main():
     # print('The Port is :', port)
     print('The IP Address is :', ip)
     # nikto +h 10.10.110.100:65000
-    os.system('gnome-terminal -- bash -c "nikto +h ' + url + ' -output ' + path_dir + '/nikto.txt && bash"')
+
+    command_nikto = "nikto +h " + url + " | tee " + path_dir + "/nikto.txt "
+    print("Command Nikto : " + command_nikto)
+    os.system('gnome-terminal -- bash -c "' + command_nikto + ' && bash"')
 
     # gobuster vhost -w wordlist/subdomain/subdomains-top1mil-20000.txt -u http://10.10.110.100:65000 -t 50 --append-domain
+    command_gobuster_subdomain = "gobuster vhost -u http://" + url + " -w " + wordlist_subdomain + " -t 50 | tee " + path_dir + "/subdomain.txt "
+    print("Command Gobuster Subdomain : " + command_gobuster_subdomain)
     os.system(
-        'gnome-terminal -- bash -c " gobuster vhost -u http://' + url + ' -w ' + wordlist_subdomain + ' -t 50  -o ' + path_dir + '/subdomain.txt && bash"')
+        'gnome-terminal -- bash -c "' + command_gobuster_subdomain + ' && bash"')
 
     # gobuster dir -u http://172.16.1.19:8080 -w wordlist/directory/common.txt -t 50
+
+    command_gobuster_dir = "gobuster dir -u http://" + url + " -w " + wordlist_dirsearch + " -t 50  | tee " + path_dir + "/dirsearch.txt "
+    print("Command Gobuster Dir : " + command_gobuster_dir)
     os.system(
-        'gnome-terminal -- bash -c " gobuster dir -u http://' + url + ' -w ' + wordlist_dirsearch + ' -t 50  -o ' + path_dir + '/dirsearch.txt && bash"')
+        'gnome-terminal -- bash -c "' + command_gobuster_dir + ' && bash"')
 
 
 if __name__ == '__main__':

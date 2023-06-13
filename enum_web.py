@@ -58,8 +58,11 @@ def check_requirements(wordlist_dirsearch, wordlist_subdomain):
 
 def main():
     # url = input("Please enter the URL : ")
+    url = "10.10.110.100"
     url = "172.16.1.19"
+
     ip = socket.gethostbyname(url)
+    port = "65000"
     port = "8080"
     if port != "":
         url = url + ":" + port
@@ -78,9 +81,9 @@ def main():
 
     # gobuster vhost -w wordlist/subdomain/subdomains-top1mil-20000.txt -u http://10.10.110.100:65000 -t 50 --append-domain
     os.system(
-        'gnome-terminal -- bash -c " gobuster vhost -w ' + wordlist_subdomain + ' -u http://' + url + ' -t 50 --append-domain  -o ' + path_dir + '/subdomain.txt && bash"')
+        'gnome-terminal -- bash -c " gobuster vhost -u http://' + url + ' -w ' + wordlist_subdomain + ' -t 50 --append-domain  -o ' + path_dir + '/subdomain.txt && bash"')
 
-    # gobuster dir -u http://172.16.1.19:/8080 -w wordlist/directory/common.txt -t 50
+    # gobuster dir -u http://172.16.1.19:8080 -w wordlist/directory/common.txt -t 50
     os.system(
         'gnome-terminal -- bash -c " gobuster dir -u http://' + url + ' -w ' + wordlist_dirsearch + ' -t 50  -o ' + path_dir + '/dirsearch.txt && bash"')
 

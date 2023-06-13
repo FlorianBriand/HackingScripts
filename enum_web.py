@@ -81,7 +81,7 @@ def main():
 
     # gobuster vhost -w wordlist/subdomain/subdomains-top1mil-20000.txt -u http://10.10.110.100:65000 -t 50 --append-domain
     os.system(
-        'gnome-terminal -- bash -c " gobuster vhost -u http://' + url + ' -w ' + wordlist_subdomain + ' -t 50 --append-domain  -o ' + path_dir + '/subdomain.txt && bash"')
+        'gnome-terminal -- bash -c " gobuster vhost -u http://' + url + ' -w ' + wordlist_subdomain + ' -t 50  -o ' + path_dir + '/subdomain.txt && bash"')
 
     # gobuster dir -u http://172.16.1.19:8080 -w wordlist/directory/common.txt -t 50
     os.system(

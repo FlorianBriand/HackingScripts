@@ -26,6 +26,13 @@ def check_requirements(wordlist_dirsearch, wordlist_subdomain):
 
     os.system("python3 -m pip install -r requirements.txt")
 
+    required_tools = ["gobuster", "nikto", "nmap", "gnome-terminal"]
+    for tool in required_tools:
+        if os.system(f"which {tool}") != 0:
+            print(colored(f"[!] {tool} not found!", 'red'))
+            print(colored(f"[!] Please install {tool}: sudo apt-get install {tool}", 'red'))
+            exit()
+
     if not os.path.isfile(wordlist_dirsearch):
         print(colored("[!] Wordlist dirsearch not found!", 'red'))
         exit()
@@ -33,27 +40,6 @@ def check_requirements(wordlist_dirsearch, wordlist_subdomain):
         print(colored("[!] Wordlist subdomain not found!", 'red'))
         exit()
 
-    # Check if gobuster is installed
-    if os.system("which gobuster") != 0:
-        print(colored("[!] Gobuster not found!", 'red'))
-        print(colored("[!] Please install gobuster : sudo apt-get install gobuster", 'red'))
-        exit()
-    # Check if nikto is installed
-    if os.system("which nikto") != 0:
-        print(colored("[!] Nikto not found!", 'red'))
-        print(colored("[!] Please install nikto : sudo apt-get install nikto", 'red'))
-        exit()
-    # Check if nmap is installed
-    if os.system("which nmap") != 0:
-        print(colored("[!] Nmap not found!", 'red'))
-        print(colored("[!] Please install nmap : sudo apt-get install nmap", 'red'))
-        exit()
-
-    # Check if gnome-terminal is installed
-    if os.system("which gnome-terminal") != 0:
-        print(colored("[!] gnome-terminal not found!", 'red'))
-        print(colored("[!] Please install gnome-terminal : sudo apt-get install gnome-terminal", 'red'))
-        exit()
 
 
 def main():

@@ -24,15 +24,23 @@ print(colored(text2art("Weban"), 'cyan'))
 
 
 def main():
-    url = input("Please enter the URL : ")
+    # url = input("Please enter the URL : ")
+    url = "danteweb1.htb"
+    ip = socket.gethostbyname(url)
+    port = "65000"
+    if port != "":
+        url = url + ":" + port
+
     path_dir = "reports/" + url
     create_dir(path_dir)
-    ip = socket.gethostbyname(url)
+
+    # print('The Port is :', port)
     print('The IP Address is :', ip)
-    os.system('gnome-terminal -- bash -c "nmap -A ' + ip + ' -o ' + path_dir + '/nmap.txt && bash"')
+    os.system('gnome-terminal -- bash -c "nmap ' + ip + ' -o ' + path_dir + '/nmap.txt && bash"')
     os.system('gnome-terminal -- bash -c "nikto +h ' + url + ' -output ' + path_dir + '/nikto.txt && bash"')
     os.system(
-        'gnome-terminal -- bash -c "python3 __init__/dirsearch/dirsearch.py -u ' + url + ' -e ' + path_dir + '/nmap.txt && bash"')
+        'gnome-terminal -- bash -c "python3 __init__/dirsearch/dirsearch.py -u ' + url + ' -e ' + path_dir + '/dirsearch.txt && bash"')
+
 
 if __name__ == '__main__':
     main()

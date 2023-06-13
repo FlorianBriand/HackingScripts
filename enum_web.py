@@ -6,6 +6,7 @@ import socket
 from art import *
 from termcolor import colored
 
+
 def create_dir(directory):
     if not os.path.exists(directory):
         os.makedirs(directory)
@@ -72,9 +73,14 @@ def main():
 
     # print('The Port is :', port)
     print('The IP Address is :', ip)
+    # nikto +h 10.10.110.100
     os.system('gnome-terminal -- bash -c "nikto +h ' + url + ' -output ' + path_dir + '/nikto.txt && bash"')
+
+    # gobuster vhost -w /wordlist/subdomain/subdomains-top1mil-20000.txt -u http://10.10.110.100 -t 50 --append-domain
     os.system(
         'gnome-terminal -- bash -c " gobuster vhost -w ' + wordlist_subdomain + ' -u http://' + url + ' -t 50 --append-domain  -o ' + path_dir + '/subdomain.txt && bash"')
+
+    # gobuster dir -u http://10.10.110.100:65000 -w /wordlist/directory/common.txt -t 50
     os.system(
         'gnome-terminal -- bash -c " gobuster dir -u http://' + url + ' -w ' + wordlist_dirsearch + ' -t 50  -o ' + path_dir + '/dirsearch.txt && bash"')
 

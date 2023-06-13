@@ -76,7 +76,7 @@ def main():
     # nikto +h 10.10.110.100
     os.system('gnome-terminal -- bash -c "nikto +h ' + url + ' -output ' + path_dir + '/nikto.txt && bash"')
 
-    # gobuster vhost -w /wordlist/subdomain/subdomains-top1mil-20000.txt -u http://10.10.110.100 -t 50 --append-domain
+    # gobuster vhost -w /wordlist/subdomain/subdomains-top1mil-20000.txt -u http://10.10.110.100:65000 -t 50 --append-domain
     os.system(
         'gnome-terminal -- bash -c " gobuster vhost -w ' + wordlist_subdomain + ' -u http://' + url + ' -t 50 --append-domain  -o ' + path_dir + '/subdomain.txt && bash"')
 

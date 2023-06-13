@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+import argparse
 import os
 import socket
 
@@ -41,15 +41,17 @@ def check_requirements(wordlist_dirsearch, wordlist_subdomain):
         exit()
 
 
-
 def main():
-    # url = input("Please enter the URL : ")
-    url = "10.10.110.100"
-    # url = "172.16.1.19"
+    parser = argparse.ArgumentParser(description='SiteScan')
+    parser.add_argument('-u', '--url', required=True, help='Target URL')
+    parser.add_argument('-p', '--port', default='80', help='Target port (default: 80)')
+    args = parser.parse_args()
+
+    url = args.url
+    port = args.port
 
     ip = socket.gethostbyname(url)
-    port = "65000"
-    #port = "8080"
+
     if port != "":
         url = url + ":" + port
 
@@ -71,15 +73,13 @@ def main():
     # gobuster vhost -w wordlist/subdomain/subdomains-top1mil-20000.txt -u http://10.10.110.100:65000 -t 50 --append-domain
     command_gobuster_subdomain = "gobuster vhost -u http://" + url + " -w " + wordlist_subdomain + " -t 50 | tee " + path_dir + "/subdomain.txt "
     print("Command Gobuster Subdomain : " + command_gobuster_subdomain)
-    os.system(
-        'gnome-terminal -- bash -c "' + command_gobuster_subdomain + ' && bash"')
+    os.system('gnome-terminal -- bash -c "' + command_gobuster_subdomain + ' && bash"')
 
     # gobuster dir -u http://172.16.1.19:8080 -w wordlist/directory/common.txt -t 50
 
-    command_gobuster_dir = "gobuster dir -u http://" + url + " -w " + wordlist_dirsearch + " -t 50  | tee " + path_dir + "/dirsearch.txt "
+    command_gobuster_dir = "gobuster dir -u http://" + url + " -w " + wordlist_dirsearch + " -t 50 | tee " + path_dir + "/dirsearch.txt "
     print("Command Gobuster Dir : " + command_gobuster_dir)
-    os.system(
-        'gnome-terminal -- bash -c "' + command_gobuster_dir + ' && bash"')
+    os.system('gnome-terminal -- bash -c "' + command_gobuster_dir + ' && bash"')
 
 
 if __name__ == '__main__':

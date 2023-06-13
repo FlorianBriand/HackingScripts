@@ -58,7 +58,7 @@ def check_requirements(wordlist_dirsearch, wordlist_subdomain):
 
 def main():
     # url = input("Please enter the URL : ")
-    url = "danteweb1.htb"
+    url = "10.10.110.100"
     ip = socket.gethostbyname(url)
     port = "65000"
     if port != "":

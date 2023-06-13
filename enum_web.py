@@ -6,7 +6,6 @@ import socket
 from art import *
 from termcolor import colored
 
-
 def create_dir(directory):
     if not os.path.exists(directory):
         os.makedirs(directory)
@@ -23,8 +22,8 @@ print(colored(text2art("SiteScan"), 'cyan'))
 
 def check_requirements(wordlist_dirsearch, wordlist_subdomain):
     print(colored("[+] Checking Requirements...", 'green'))
-    # TODO
-    # os.system("python3 -m pip install -r requirements.txt")
+
+    os.system("python3 -m pip install -r requirements.txt")
 
     if not os.path.isfile(wordlist_dirsearch):
         print(colored("[!] Wordlist dirsearch not found!", 'red'))

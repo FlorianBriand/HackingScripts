@@ -73,7 +73,7 @@ def main():
 
     # print('The Port is :', port)
     print('The IP Address is :', ip)
-    # nikto +h 10.10.110.100
+    # nikto +h 10.10.110.100:65000
     os.system('gnome-terminal -- bash -c "nikto +h ' + url + ' -output ' + path_dir + '/nikto.txt && bash"')
 
     # gobuster vhost -w /wordlist/subdomain/subdomains-top1mil-20000.txt -u http://10.10.110.100:65000 -t 50 --append-domain

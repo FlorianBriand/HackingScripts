@@ -34,7 +34,9 @@ def get_list_web_server():
 liste_web_server = get_list_web_server()
 
 for ip, port in liste_web_server:
-    os.system("python3 enum_web.py -u " + ip + " -p " + port)
+    command = "python3 enum_web.py -u " + ip + " -p " + port
+    os.system(command)
+
     # Progress
     print("Progress: " + str(liste_web_server.index((ip, port)) + 1) + "/" + str(len(liste_web_server)))
     # Wait for the user to press enter

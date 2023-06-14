@@ -35,8 +35,7 @@ def get_webpage(ip, port):
         return None
 
 
-def main():
-    report = open("nmap.txt", "r").read()
+def extract_ip_and_ports_webpage(report):
 
     ip_ports = extract_ip_and_ports(report)
 
@@ -52,6 +51,4 @@ def main():
 
     print(list_webpage)
 
-
-if __name__ == "__main__":
-    main()
+    return list_webpage

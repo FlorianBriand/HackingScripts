@@ -53,7 +53,7 @@ def main():
     ip = socket.gethostbyname(url)
 
     if port != "":
-        url = url + ":" + port
+        url = url + "-" + port
 
     path_dir = "reports/" + url
     create_dir(path_dir)

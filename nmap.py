@@ -1,3 +1,5 @@
+import requests
+
 def extract_ip_and_ports(report):
     lines = report.strip().split('\n')
     ip_ports = []
@@ -13,6 +15,18 @@ def extract_ip_and_ports(report):
             port = line.split()[0].split("/")[0]
             ip_ports.append((ip, port))
     return ip_ports
+
+
+def get_webpage(ip, port):
+    url = f"http://{ip}:{port}"
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            print(f"Page found at {url}")
+        else:
+            print(f"Page not found at {url}")
+    except requests.exceptions.RequestException as e:
+        print(f"Error connecting to {url}: {str(e)}")
 
 def main():
     report = open("nmap.txt", "r").read()

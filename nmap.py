@@ -1,25 +1,26 @@
-import re
-
-
-def extract_web_servers(report):
-    web_servers = []
-    lines = report.split('\n')
+def extract_ip_and_ports(report):
+    lines = report.strip().split('\n')
+    ip_ports = []
+    ip = ""
     for line in lines:
-        match = re.search(r'Nmap scan report for (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})', line)
-        if match:
-            ip = match.group(1)
-        elif "http" in line:
-            match = re.search(r'\b(\d+)/tcp\s+open\s+(\w+)', line)
-            if match:
-                port = match.group(1)
-                service = match.group(2)
-                if service == "http":
-                    web_servers.append((ip, port))
-    return web_servers
+        # if the line match with "Nmap scan report for X.X.X.X"
+        if "Nmap scan report for" in line:
+            # split the line to get the IP
+            ip = line.split()[4]
+        # if the line match with x/tcp open
+        if "/tcp" in line:
+            # split the line to get the port
+            port = line.split()[0].split("/")[0]
+            ip_ports.append((ip, port))
+    return ip_ports
+
+def main():
+    report = open("nmap.txt", "r").read()
+
+    ip_ports = extract_ip_and_ports(report)
+
+    print(ip_ports)
 
 
-nmap_report = open("nmap.txt", "r").read()
-
-web_servers = extract_web_servers(nmap_report)
-for server in web_servers:
-    print("IP:", server[0], "Port:", server[1])
+if __name__ == "__main__":
+    main()

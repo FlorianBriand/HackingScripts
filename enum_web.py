@@ -53,9 +53,9 @@ def main():
     ip = socket.gethostbyname(url)
 
     if port != "":
-        url = url + "-" + port
+        url = url + ":" + port
 
-    path_dir = "reports/" + url
+    path_dir = "reports/" + url.replace(":", "_")
     create_dir(path_dir)
 
     wordlist_subdomain = "wordlist/subdomain/subdomains-top1mil-20000.txt"

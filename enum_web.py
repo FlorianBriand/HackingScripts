@@ -45,17 +45,19 @@ def main():
     parser = argparse.ArgumentParser(description='SiteScan')
     parser.add_argument('-u', '--url', required=True, help='Target URL')
     parser.add_argument('-p', '--port', default='80', help='Target port (default: 80)')
+    parser.add_argument('-path', '--path', default='', help='Target path (default: /)')
     args = parser.parse_args()
 
     url = args.url
     port = args.port
+    path = args.path
 
     ip = socket.gethostbyname(url)
 
     if port != "":
-        url = url + ":" + port
+        url = url + ":" + port + path
 
-    path_dir = "reports/" + url.replace(":", "_")
+    path_dir = "reports/" + url.replace(":", "-")
     create_dir(path_dir)
 
     wordlist_subdomain = "wordlist/subdomain/subdomains-top1mil-20000.txt"
@@ -71,7 +73,7 @@ def main():
     os.system('gnome-terminal -- bash -c "' + command_nikto + ' && bash"')
 
     # gobuster vhost -w wordlist/subdomain/subdomains-top1mil-20000.txt -u http://10.10.110.100:65000 -t 50 --append-domain
-    command_gobuster_subdomain = "gobuster vhost -u http://" + url + " -w " + wordlist_subdomain + " -t 50 | tee " + path_dir + "/subdomain.txt "
+    command_gobuster_subdomain = "gobuster vhost -u http://" + url + " -w " + wordlist_subdomain + " -t 50 --append-domain | tee " + path_dir + "/subdomain.txt "
     print("Command Gobuster Subdomain : " + command_gobuster_subdomain)
     os.system('gnome-terminal -- bash -c "' + command_gobuster_subdomain + ' && bash"')
 

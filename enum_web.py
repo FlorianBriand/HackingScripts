@@ -79,7 +79,7 @@ def main():
 
     # gobuster dir -u http://172.16.1.19:8080 -w wordlist/directory/common.txt -t 50
 
-    command_gobuster_dir = "gobuster dir -u http://" + url + " -w " + wordlist_dirsearch + " -t 50 | tee " + path_dir + "/dirsearch.txt "
+    command_gobuster_dir = "gobuster dir -u http://" + url + " -w " + wordlist_dirsearch + " -t 50 -k  | tee " + path_dir + "/dirsearch.txt "
     print("Command Gobuster Dir : " + command_gobuster_dir)
     os.system('gnome-terminal -- bash -c "' + command_gobuster_dir + ' && bash"')
 

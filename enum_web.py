@@ -74,18 +74,21 @@ def main():
     # nikto +h 10.10.110.100:65000
 
     command_nikto = "nikto +h " + url + " | tee " + path_dir + "/nikto.txt "
-    print("Command Nikto : " + command_nikto)
+    print("Command Nikto : ")
+    print(command_nikto)
     os.system('gnome-terminal -- bash -c "' + command_nikto + ' && bash"')
 
     # gobuster vhost -w wordlist/subdomain/subdomains-top1mil-20000.txt -u http://10.10.110.100:65000 -t 50 --append-domain
     command_gobuster_subdomain = "gobuster vhost -u " + protocol + url + " -w " + wordlist_subdomain + " -t 50 --append-domain -k | tee " + path_dir + "/subdomain.txt "
-    print("Command Gobuster Subdomain : " + command_gobuster_subdomain)
+    print("Command Gobuster Subdomain :")
+    print(command_gobuster_subdomain)
     os.system('gnome-terminal -- bash -c "' + command_gobuster_subdomain + ' && bash"')
 
     # gobuster dir -u http://172.16.1.19:8080 -w wordlist/directory/common.txt -t 50
 
     command_gobuster_dir = "gobuster dir -u " + protocol + url + " -w " + wordlist_dirsearch + " -t 50 -k  | tee " + path_dir + "/dirsearch.txt "
-    print("Command Gobuster Dir : " + command_gobuster_dir)
+    print("Command Gobuster Dir : ")
+    print(command_gobuster_dir)
     os.system('gnome-terminal -- bash -c "' + command_gobuster_dir + ' && bash"')
 
 

@@ -57,6 +57,11 @@ def main():
     if port != "":
         url = url + ":" + port + path
 
+    if port == "443":
+        protocol = "https://"
+    else:
+        protocol = "http://"
+
     path_dir = "reports/" + url.replace(":", "-")
     create_dir(path_dir)
 
@@ -73,13 +78,13 @@ def main():
     os.system('gnome-terminal -- bash -c "' + command_nikto + ' && bash"')
 
     # gobuster vhost -w wordlist/subdomain/subdomains-top1mil-20000.txt -u http://10.10.110.100:65000 -t 50 --append-domain
-    command_gobuster_subdomain = "gobuster vhost -u http://" + url + " -w " + wordlist_subdomain + " -t 50 --append-domain | tee " + path_dir + "/subdomain.txt "
+    command_gobuster_subdomain = "gobuster vhost -u " + protocol + url + " -w " + wordlist_subdomain + " -t 50 --append-domain | tee " + path_dir + "/subdomain.txt "
     print("Command Gobuster Subdomain : " + command_gobuster_subdomain)
     os.system('gnome-terminal -- bash -c "' + command_gobuster_subdomain + ' && bash"')
 
     # gobuster dir -u http://172.16.1.19:8080 -w wordlist/directory/common.txt -t 50
 
-    command_gobuster_dir = "gobuster dir -u http://" + url + " -w " + wordlist_dirsearch + " -t 50 -k  | tee " + path_dir + "/dirsearch.txt "
+    command_gobuster_dir = "gobuster dir -u " + protocol + url + " -w " + wordlist_dirsearch + " -t 50 -k  | tee " + path_dir + "/dirsearch.txt "
     print("Command Gobuster Dir : " + command_gobuster_dir)
     os.system('gnome-terminal -- bash -c "' + command_gobuster_dir + ' && bash"')
 

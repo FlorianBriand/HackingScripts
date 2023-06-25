@@ -78,7 +78,7 @@ def main():
     os.system('gnome-terminal -- bash -c "' + command_nikto + ' && bash"')
 
     # gobuster vhost -w wordlist/subdomain/subdomains-top1mil-20000.txt -u http://10.10.110.100:65000 -t 50 --append-domain
-    command_gobuster_subdomain = "gobuster vhost -u " + protocol + url + " -w " + wordlist_subdomain + " -t 50 --append-domain | tee " + path_dir + "/subdomain.txt "
+    command_gobuster_subdomain = "gobuster vhost -u " + protocol + url + " -w " + wordlist_subdomain + " -t 50 --append-domain -k | tee " + path_dir + "/subdomain.txt "
     print("Command Gobuster Subdomain : " + command_gobuster_subdomain)
     os.system('gnome-terminal -- bash -c "' + command_gobuster_subdomain + ' && bash"')
 
